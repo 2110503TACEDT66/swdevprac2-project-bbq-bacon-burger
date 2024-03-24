@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function CartItem({ hotelName, imgSrc, price }: { hotelName: string, imgSrc: string, price: number}) {
     return (
-        <div className="flex flex-row border-solid border-2 border-gray-400 rounded-md mb-3">
+        <div className="flex flex-row border-solid border-2 border-gray-400 rounded-md mb-3 bg-white">
             <Image src={imgSrc} alt={hotelName} width={200} height={200} className="rounded-sm" />
             <div className="ml-2 text-black text-">
                 <h1 className="text-xl">{hotelName}</h1>

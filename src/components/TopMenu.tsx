@@ -13,6 +13,7 @@ export default function TopMenu() {
             <div className='flex flex-row absolute right-0 h-full mr-3 items-center'>
                 <TopMenuItem title='Browse Hotel' pageRef='/hotel'/>
                 <TopMenuItem title='Sign-In' pageRef='/Sign-In' />
+                <TopMenuItem title='My Booking' pageRef='/mybooking' />
                 <Link href={'/profile'} >
                     <Image src={'/img/profile-user.png'} alt='profile' width={0} height={0} sizes='3vh' className='h-[100%] w-auto mx-5'/>
                 </Link>
