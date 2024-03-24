@@ -1,5 +1,5 @@
 import DateBooker from "@/components/DateBooker";
-import { Rating } from "@mui/material";
+import { Rating, Button } from "@mui/material";
 import Image from "next/image";
 
 
@@ -40,7 +40,12 @@ export default function Detailpage( {params} : {params:  {hid:string}}) {
             </div>
 
             <div className="bg-white h-auto pb-5 w-[90%] mt-5 mx-auto border border-solid border-slate-800 rounded-b-2xl">
-                <div className="mx-auto mt-10 mb-5 h-[150px] w-[95%] border border-solid border-slate-500 rounded-2xl"></div>
+                <p className="text-md font-light mx-10 mt-5">Your Review</p> 
+                <div className="mx-auto mt-1 mb-5 h-[auto] p-5 w-[95%] border border-solid border-slate-500 rounded-2xl">
+                    <Rating></Rating>
+                    <Button className="float-right" variant="outlined">Post Review</Button>
+                    <textarea className="h-[100px] w-full px-5 py-2 mt-2"></textarea>
+                </div>
                 
                 <p className="text-md font-light mx-10">Other customer reviews</p> 
                 <div className="mx-auto mt-1 mb-5 p-5 h-[auto] w-[95%] border border-solid border-slate-500 rounded-2xl">
