@@ -3,17 +3,17 @@ import CardTemplate from "./CardTemplate";
 import getHotels from "@/libs/getHotels";
 import getHotel from "@/libs/getHotel";
 
-export default async function HotelCard({hotelName,hotelAddress,hotelTel}:{hotelName:string,imgSrc:string,hotelAddress:string,hotelTel:string}){
+export default async function HotelCard({hotelName,imgSrc,hotelAddress,hotelTel}:{hotelName:string,imgSrc:string,hotelAddress:string,hotelTel:string}){
 
     const randPrice = Math.floor(Math.random() * (10000 - 100 + 1)) + 100;
 
     return(
         <CardTemplate contentName={hotelName}>
             <div className="w-1/3 relative rounded-t-lg">
-                {/* <Image src={imgSrc} alt={hotelName} fill={true} className='object-cover rounded-t-lg'/> */}
+                <Image src={imgSrc} alt={hotelName} fill={true} className="object-cover"/>
             </div>
-            <div className="block w-full">
-                <div className="w-full px-[4%] pt-[2%] ">
+            <div className="block w-full text-black">
+                <div className="w-full font-bold px-[4%] pt-[2%] ">
                     {hotelName}
                 </div>
                 <div className="w-full px-[4%] pt-[2%] ">

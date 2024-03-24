@@ -9,7 +9,7 @@ export default async function HotelCatalog({hotelJson}:{hotelJson:Object}){
                 {
                     gethotelJson.data.map((hotelItem:Object)=>(
                         <Link key={hotelItem.name} href={`/hotel/${hotelItem.id}`}>
-                            <HotelCard hotelName={hotelItem.name} imgSrc={hotelItem.file} hotelAddress={hotelItem.address} hotelTel={hotelItem.tel}/>
+                            <HotelCard hotelName={hotelItem.name} imgSrc={`/img/`+hotelItem.file} hotelAddress={hotelItem.address} hotelTel={hotelItem.tel}/>
                         </Link>
                     ))   
                 }
