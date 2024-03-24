@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-export default function CartItem({ hotelName, imgSrc, price }: { hotelName: string, imgSrc: string, price: number}) {
+export default function CartItem({ hotelName, imgSrc, price, buttonName }: { hotelName: string, imgSrc: string, price: number, buttonName: string}) {
     return (
         <div className="flex flex-row border-solid border-2 border-gray-400 rounded-md mb-3 bg-white">
             <Image src={imgSrc} alt={hotelName} width={200} height={200} className="rounded-sm" />
@@ -10,7 +10,7 @@ export default function CartItem({ hotelName, imgSrc, price }: { hotelName: stri
                 <h3 className="text-2xl pt-3 text-orange-500">{price}.- </h3>
             </div>
             <div className="ml-auto">
-                <button className="bg-red-500 text-white rounded-lg p-1 m-1">Remove</button>
+                <button className="bg-red-500 text-white rounded-lg p-1 m-1">{buttonName}</button>
             </div>
                 
             

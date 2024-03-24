@@ -12,15 +12,14 @@ export default function Cart({ hotelName, imgSrc }: { hotelName: string, imgSrc:
             </div>
 
              {  session == true ?
-                <div className="flex flex-row pl-20 pr-20 pt-10 h-auto bg-paper">
+                <div className="flex flex-row pl-20 pr-20 pt-10 h-auto min-h-lvh bg-paper min">
                     <div className="w-[60%] h-full">
-                        <CartItem hotelName="Reo Hotel 200Bth" imgSrc="/img/banner1.png" price={200} />
-                        <CartItem hotelName="Reo Hotel 300Bitcoin" imgSrc="/img/banner1.png" price={2300} />
-                        <CartItem hotelName="Reo Hotel 2 no student" imgSrc="/img/banner1.png" price={212300} />
-                        <CartItem hotelName="Reo Hotel 2 no student" imgSrc="/img/banner1.png" price={212300} />
-                        <CartItem hotelName="Reo Hotel 2 no student" imgSrc="/img/banner1.png" price={212300} />
-                        <CartItem hotelName="Reo Hotel 2 no student" imgSrc="/img/banner1.png" price={212300} />
-                        <CartItem hotelName="Reo Hotel 2 no student" imgSrc="/img/banner1.png" price={212300} />
+                        <CartItem hotelName="Reo Hotel 200Bth" imgSrc="/img/banner1.png" price={200} buttonName="Remove"/>
+                        <CartItem hotelName="Reo Hotel 300Bitcoin" imgSrc="/img/banner1.png" price={2300} buttonName="Remove"/>
+                        <CartItem hotelName="Reo Hotel 300Bitcoin" imgSrc="/img/banner1.png" price={2300} buttonName="Remove"/>
+                        <CartItem hotelName="Reo Hotel 300Bitcoin" imgSrc="/img/banner1.png" price={2300} buttonName="Remove"/>
+                        <CartItem hotelName="Reo Hotel 300Bitcoin" imgSrc="/img/banner1.png" price={2300} buttonName="Remove"/>
+                        <CartItem hotelName="Reo Hotel 300Bitcoin" imgSrc="/img/banner1.png" price={2300} buttonName="Remove"/>
                     </div>
                     <div className="w-[40%] h-fit text-black ml-[10%] border-solid border-2 border-gray-400 rounded-md bg-white">
                         <div className="p-3">
