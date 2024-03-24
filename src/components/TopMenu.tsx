@@ -11,7 +11,7 @@ export default function TopMenu() {
                 <Image src={'/img/logo.png'} className="h-full w-auto ml-3 my-1" alt='logo' width={0} height={0} sizes='100vh'/>
             </Link>
             <div className='flex flex-row absolute right-0 h-full mr-3 items-center'>
-                <TopMenuItem title='Browse Hotel' pageRef='/hotels'/>
+                <TopMenuItem title='Browse Hotel' pageRef='/hotel'/>
                 <TopMenuItem title='Sign-In' pageRef='/Sign-In' />
                 <Link href={'/profile'} >
                     <Image src={'/img/profile-user.png'} alt='profile' width={0} height={0} sizes='3vh' className='h-[100%] w-auto mx-5'/>
