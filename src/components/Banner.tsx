@@ -3,7 +3,7 @@ import Image from "next/image"
 
 export default function Banner() {
     return (
-        <div className="flex flex-row p-20 h-[92vh] bg-paper">
+        <div className="flex flex-row p-20 h-[83vh] bg-paper">
             <div className="w-[45%] px-20 py-10">
                 <p className="font-semibold font-serif text-6xl text-slate-800 leading-loose">Explore your <span className="text-orange-500 bold">world</span>,</p> 
                 <p className="font-semibold font-serif text-6xl text-slate-800">One <span className="text-orange-500 bold">stay</span> at a time</p>
