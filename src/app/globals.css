@@ -91,7 +91,7 @@ body {
 
 body {
   color: rgb(var(--foreground-rgb));
-  margin-top: 50px;
+  margin-top: 70px;
 }
 
 a {
@@ -104,3 +104,5 @@ a {
     color-scheme: dark;
   }
 }
+
+
