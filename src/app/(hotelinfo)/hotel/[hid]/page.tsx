@@ -1,4 +1,5 @@
 import DateBooker from "@/components/DateBooker";
+import ReviewBlock from "@/components/ReviewBlock";
 import { Rating, Button } from "@mui/material";
 import Image from "next/image";
 
@@ -48,18 +49,9 @@ export default function Detailpage( {params} : {params:  {hid:string}}) {
                 </div>
                 
                 <p className="text-md font-light mx-10">Other customer reviews</p> 
-                <div className="mx-auto mt-1 mb-5 p-5 h-[auto] w-[95%] border border-solid border-slate-500 rounded-2xl">
-                    <p className="font-semibold">Mr.Beast </p>
-                    <Rating></Rating>
-                    <p>text</p>
-
-                </div>
-                <div className="mx-auto mt-1 mb-5 p-5 h-[auto] w-[95%] border border-solid border-slate-500 rounded-2xl">
-                    <p className="font-semibold">Mr.Beast </p>
-                    <Rating></Rating>
-                    <p>text</p>
-
-                </div>
+                <ReviewBlock user="john" rating={5} comment={"nah I'd win"}/>
+                <ReviewBlock user="roblox" rating={2} comment={"this hotel is good"}/>
+                
             </div>
         </main>
     )
