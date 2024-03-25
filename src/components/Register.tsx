@@ -1,6 +1,5 @@
 'use client'
-import { useRef, useState } from "react"
-import { use } from "react";
+import { useRef, useState, useEffect} from "react"
 import OTPTextfield from "./OTPTextfield";
 import sentOTP from "@/libs/sentOTP";
 export default function Register() {
@@ -23,11 +22,12 @@ export default function Register() {
             return;
         }
         setErrMsg(false);
-        alert(email.current)
-        sentOTP(email.current);
+        sentOTP(email.current)
         setShowOTP(true);
 
     }
+
+   
 
     return (
         <>

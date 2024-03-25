@@ -31,16 +31,6 @@ export default function OTPTextfield({firstname, lastname, email, password, tel}
         } catch(err) {
             alert('wrong otp');
         };
-
-        await signIn("credentials", {
-            email: email,
-            password: password,
-            redirect: true,
-            callbackUrl: "http://localhost:3000"
-        })
-        
-
-        
         
     }
 
