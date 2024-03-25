@@ -3,9 +3,9 @@ import CardTemplate from "./CardTemplate";
 import getHotels from "@/libs/getHotels";
 import getHotel from "@/libs/getHotel";
 
-export default async function HotelCard({hotelName,imgSrc,hotelAddress,hotelTel}:{hotelName:string,imgSrc:string,hotelAddress:string,hotelTel:string}){
+export default async function HotelCard({hotelName,imgSrc,hotelAddress,hotelTel,hotelPrice}:{hotelName:string,imgSrc:string,hotelAddress:string,hotelTel:string,hotelPrice:number}){
 
-    const randPrice = Math.floor(Math.random() * (10000 - 100 + 1)) + 100;
+    // const randPrice = Math.floor(Math.random() * (10000 - 100 + 1)) + 100;
 
     return(
         <CardTemplate contentName={hotelName}>
@@ -26,11 +26,11 @@ export default async function HotelCard({hotelName,imgSrc,hotelAddress,hotelTel}
                     Rating: 
                 </div>
                 <div className="w-full px-[4%] pt-[2%] text-2xl r-0 b-0">
-                    ฿: {randPrice}
+                    ฿: {hotelPrice}
                 </div>
-                <div className="w-full px-[4%] pt-[2%] text-2xl r-0 b-0">
+                {/* <div className="w-full px-[4%] pt-[2%] text-2xl r-0 b-0">
                     {imgSrc}
-                </div>
+                </div> */}
             </div>
             
         </CardTemplate>

@@ -2,22 +2,28 @@ import DateBooker from "@/components/DateBooker";
 import ReviewBlock from "@/components/ReviewBlock";
 import { Rating} from "@mui/material";
 import Image from "next/image";
+import getHotel from "@/libs/getHotel";
 
 
-export default function Detailpage( {params} : {params:  {hid:string}}) {
+export default async function Detailpage( {params} : {params:  {hid:string}}) {
+
+    const hotelDetail = await getHotel(params.hid)
+
     return (
         <main className="h-auto w-full">
             <div className="bg-white h-[500px] w-[90%] mt-5 mx-auto border border-solid border-slate-800 rounded-t-2xl flex">
                 <div className="relative h-[100%] w-[35%]">
-                <Image src="/img/banner1.png" alt="bannerImage1" fill={true} priority className="block obj-cover rounded-tl-2xl"></Image>
+                <Image src={`/img/${hotelDetail.data.file}`} alt="bannerImage1" fill={true} priority className="block obj-cover rounded-tl-2xl"></Image>
                 </div>
 
                 <div className="p-10">
-                    <h1 className="my-2 font-bold text-3xl font-sans">Australian Gaylords Hotel</h1>
+                    <h1 className="my-2 font-bold text-3xl font-sans">{hotelDetail.data.name}</h1>
                     <div className="h-[20px] w-[100%] flex items-center flex-wrap ">
                         <Rating readOnly value={3.4} precision={0.1}></Rating> <span className="text-sm font-light mx-3">reviews by 10 persons</span>
                     </div>
-                    <p className="m-4 font-medium text-md font-sans">information lol</p>
+                    <p className="m-4 font-medium text-md font-sans">{hotelDetail.data.address}</p>
+                    <p className="m-4 font-medium text-md font-sans">Rooms Available: {hotelDetail.data.capacity}</p>
+                    <p className="m-4 font-medium text-md font-sans">Tel. {hotelDetail.data.tel}</p>
                 </div>
                 
             </div>
@@ -33,7 +39,7 @@ export default function Detailpage( {params} : {params:  {hid:string}}) {
                     <DateBooker/> 
                 </div>
                 <div className="mx-5 w-[30%] flex justify-center items-center">
-                    <h1 className="block font-bold text-green-800 text-4xl mx-5">฿ 30,000.00</h1>
+                    <h1 className="block font-bold text-green-800 text-4xl mx-5">฿ {hotelDetail.data.price}</h1>
                     <button className="block w-[40%] h-[50%] text-2xl text-white font-bold font-sans bg-orange-500 hover:bg-slate-800 hover:text-orange-500 rounded-md">Add to Cart</button>
 
                 </div>
