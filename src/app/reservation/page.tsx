@@ -24,6 +24,7 @@ export default function reservation() {
     const MakeReservation = () => {
         if(checkInDate !== null && checkOutDate !== null && hid !== null && price !== null) {
             const booking: CartItem = {
+                _id: dayjs().format("YYYYMMDDHHmmssSSS"),
                 checkInDate: dayjs(checkInDate).format("YYYY-MM-DD"),
                 checkOutDate: dayjs(checkOutDate).format("YYYY-MM-DD"),
                 hid: hid,

@@ -28,6 +28,7 @@ interface HospitalItem {
   }
 
   export interface CartItem {
+    _id: string,
     checkInDate: string,
     checkOutDate: string,
     hid: string,
