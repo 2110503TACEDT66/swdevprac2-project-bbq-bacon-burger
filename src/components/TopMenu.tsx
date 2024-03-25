@@ -4,7 +4,7 @@ import TopMenuItem from './MenuItem'
 import Link from 'next/link'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/app/api/auth/[...nextauth]/route'
-import Logout from './Logout'
+import UserDropDown from './UserDropdown'
 
 export default async function TopMenu() {
     
@@ -23,10 +23,7 @@ export default async function TopMenu() {
                     <>
                     
                     <TopMenuItem title='My Booking' pageRef='/mybooking' />
-                    <Logout/>
-                    <Link href={'/profile'} >
-                        <Image src={'/img/profile-user.png'} alt='profile' width={0} height={0} sizes='3vh' className='h-[100%] w-auto mx-5'/>
-                    </Link>
+                    <UserDropDown/>
                     </> :
                     <TopMenuItem title='Sign-In' pageRef='/signin' />
                 }
