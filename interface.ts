@@ -36,3 +36,18 @@ interface HospitalItem {
     price: number,
     picture: string
   }
+
+  export interface UserJson {
+    success: boolean,
+    data: UserData,
+  }
+
+  export interface UserData {
+    _id: string,
+    name: string,
+    email: string,
+    tel: string,
+    role: string,
+    createdAt: string,
+    __v: number
+  }

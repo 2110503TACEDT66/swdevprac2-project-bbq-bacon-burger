@@ -27,10 +27,21 @@ export default function OTPTextfield({firstname, lastname, email, password, tel}
 
 
         try {
-            userRegister(email, password,(firstname + ' ' + lastname), tel, otpValue)
+            await userRegister(email, password,(firstname + ' ' + lastname), tel, otpValue)
+            await signIn("credentials", {
+                email: email,
+                password: password,
+                redirect: true,
+                callbackUrl: "http://localhost:3000"
+            })
+            
         } catch(err) {
-            alert('wrong otp');
+            alert(err);
         };
+
+        
+
+        
         
     }
 
