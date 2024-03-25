@@ -1,9 +1,11 @@
-'use client'
-
 import Image from "next/image"
-import CartItem from "../../components/CartItem"
-export default function Cart({ hotelName, imgSrc }: { hotelName: string, imgSrc: string }) {
-    const session = true
+import CartPanel from "@/components/CartPanel"
+import { getServerSession } from "next-auth"
+import { authOptions } from "../api/auth/[...nextauth]/route"
+
+export default async function Cart() {
+    const session = await getServerSession(authOptions);
+
     return (
         <div>
             <div className="flex justify-center items-center text-3xl pt-10">
@@ -11,16 +13,9 @@ export default function Cart({ hotelName, imgSrc }: { hotelName: string, imgSrc:
                 Your Cart
             </div>
 
-             {  session == true ?
+            {session ?
                 <div className="flex flex-row pl-20 pr-20 pt-10 h-auto min-h-lvh bg-paper min">
-                    <div className="w-[60%] h-full">
-                        <CartItem hotelName="Reo Hotel 200Bth" imgSrc="/img/banner1.png" price={200} buttonName="Remove"/>
-                        <CartItem hotelName="Reo Hotel 300Bitcoin" imgSrc="/img/banner1.png" price={2300} buttonName="Remove"/>
-                        <CartItem hotelName="Reo Hotel 300Bitcoin" imgSrc="/img/banner1.png" price={2300} buttonName="Remove"/>
-                        <CartItem hotelName="Reo Hotel 300Bitcoin" imgSrc="/img/banner1.png" price={2300} buttonName="Remove"/>
-                        <CartItem hotelName="Reo Hotel 300Bitcoin" imgSrc="/img/banner1.png" price={2300} buttonName="Remove"/>
-                        <CartItem hotelName="Reo Hotel 300Bitcoin" imgSrc="/img/banner1.png" price={2300} buttonName="Remove"/>
-                    </div>
+                    <CartPanel />
                     <div className="w-[40%] h-fit text-black ml-[10%] border-solid border-2 border-gray-400 rounded-md bg-white">
                         <div className="p-3">
                             <div className="text-lg font-bold">Your Cart</div>
@@ -43,7 +38,7 @@ export default function Cart({ hotelName, imgSrc }: { hotelName: string, imgSrc:
                             </div>
                         </div>
                     </div>
-                </div> : <div className="flex justify-center h-auto bg-paper m-10">No item in cart</div>
+                </div> : <div className="flex justify-center h-auto bg-paper m-10">No item in cart </div>
             }
         </div>
     )

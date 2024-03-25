@@ -17,3 +17,21 @@ interface HospitalItem {
     pagination: Object,
     data: HospitalItem[]
   }
+
+  export interface BookingItem {
+    _id: string,
+    apptDate: string,
+    user: string,
+    hotel: string,
+    createdAt: string,
+    __v: number,
+  }
+
+  export interface CartItem {
+    checkInDate: string,
+    checkOutDate: string,
+    hid: string,
+    name: string,
+    price: number,
+    picture: string
+  }

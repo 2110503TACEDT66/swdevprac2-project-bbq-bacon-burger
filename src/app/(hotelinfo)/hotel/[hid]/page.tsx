@@ -1,13 +1,15 @@
+
 import DateBooker from "@/components/DateBooker";
 import ReviewBlock from "@/components/ReviewBlock";
 import { Rating} from "@mui/material";
 import Image from "next/image";
 import getHotel from "@/libs/getHotel";
-
+import Link from "next/link";
 
 export default async function Detailpage( {params} : {params:  {hid:string}}) {
 
     const hotelDetail = await getHotel(params.hid)
+  
 
     return (
         <main className="h-auto w-full">
@@ -39,9 +41,10 @@ export default async function Detailpage( {params} : {params:  {hid:string}}) {
                     <DateBooker/> 
                 </div>
                 <div className="mx-5 w-[30%] flex justify-center items-center">
-                    <h1 className="block font-bold text-green-800 text-4xl mx-5">฿ {hotelDetail.data.price}</h1>
-                    <button className="block w-[40%] h-[50%] text-2xl text-white font-bold font-sans bg-orange-500 hover:bg-slate-800 hover:text-orange-500 rounded-md">Add to Cart</button>
-
+                    <h1 className="block font-bold text-green-800 text-4xl mx-10">฿ {hotelDetail.data.price}</h1>
+                    <Link href={`/reservation?price=${hotelDetail.data.price}&hid=${params.hid}&name=${hotelDetail.data.name}&file=${hotelDetail.data.file}`} className="w-[50%]" >
+                    <button className="block w-[50%] h-[50%] text-2xl text-white font-bold font-sans bg-orange-500 hover:bg-slate-800 hover:text-orange-500 rounded-md">Reserve</button>
+                    </Link>
                 </div>
         
             </div>
