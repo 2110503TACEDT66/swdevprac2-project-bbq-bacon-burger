@@ -77,15 +77,18 @@ export default function mybooking() {
                                     height={200}
                                     className="rounded-sm w-[20%]"
                                 />
-                                <div className="ml-2 text-black text-">
-                                    <h1 className="text-xl">{booking.hotel.name}</h1>
-                                    <h3 className="text-md">
+                                <div className="ml-2 text-black">
+                                    <h1 className="text-2xl font-bold">{booking.hotel.name}</h1>
+                                    <h3 className="text-xl text-gray-700">
                                         Date: {booking.checkInDate} {`->`} {booking.checkOutDate}
                                     </h3>
-                                    <h4 className="text-sm">User ID: {booking.user}</h4>
+                                    <h4 className="text-md text-gray-600">User ID: {booking.user}</h4>
                                 </div>
-                                <div className="ml-auto">
-                                    <button className="bg-red-500 text-white rounded-lg p-1 m-1 hover:bg-red-700 text-white rounded-lg transition duration-300 transform hover:scale-105" onClick={() => {setDeleteBooking(booking._id); }}>
+                                <div className="ml-auto flex flex-row h-[80%]">
+                                    <button className="bg-blue-500 w-[50%] text-white rounded-lg p-1 m-1 hover:bg-blue-700 text-white rounded-lg transition duration-300 transform hover:scale-105">
+                                        Edit
+                                    </button>
+                                    <button className="bg-red-500 w-[50%] text-white rounded-lg p-1 m-1 hover:bg-red-700 text-white rounded-lg transition duration-300 transform hover:scale-105" onClick={() => {setDeleteBooking(booking._id); }}>
                                         Cancel Booking
                                     </button>
                                 </div>
