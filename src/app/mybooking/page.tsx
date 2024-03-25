@@ -2,8 +2,6 @@
 
 import Image from "next/image"
 import getBookings from "@/libs/getBookings"
-import { getServerSession } from "next-auth"
-import { authOptions } from "../api/auth/[...nextauth]/route";
 import { BookingItem } from "../../../interface";
 import userDeleteBooking from "@/libs/userDeleteBooking";
 import { useSession } from "next-auth/react";
@@ -77,13 +75,14 @@ export default function mybooking() {
                                     alt={booking.hotel.name}
                                     width={200}
                                     height={200}
-                                    className="rounded-sm"
+                                    className="rounded-sm w-[20%]"
                                 />
                                 <div className="ml-2 text-black text-">
                                     <h1 className="text-xl">{booking.hotel.name}</h1>
-                                    <h3 className="text-sm">
+                                    <h3 className="text-md">
                                         Date: {booking.checkInDate} {`->`} {booking.checkOutDate}
                                     </h3>
+                                    <h4 className="text-sm">User ID: {booking.user}</h4>
                                 </div>
                                 <div className="ml-auto">
                                     <button className="bg-red-500 text-white rounded-lg p-1 m-1 hover:bg-red-700 text-white rounded-lg transition duration-300 transform hover:scale-105" onClick={() => {setDeleteBooking(booking._id); }}>

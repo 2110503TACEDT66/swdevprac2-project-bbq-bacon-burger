@@ -1,23 +1,3 @@
-interface HospitalItem {
-    _id: string,
-    name: string,
-    address: string,
-    district: string,
-    province: string,
-    postalcode: string,
-    tel: string,
-    picture: string,
-    __v: number,
-    id: string
-  }
-  
-  interface HospitalJson {
-    success: boolean,
-    count: number,
-    pagination: Object,
-    data: HospitalItem[]
-  }
-
   export interface BookingItem {
     _id: string,
     checkOutDate: string,
@@ -43,6 +23,14 @@ interface HospitalItem {
     name: string,
     price: number,
     picture: string
+  }
+
+  export interface BookItem {
+    user: string,
+    hotel: string,
+    checkInDate: string,
+    checkOutDate: string,
+    file: string,
   }
 
   export interface UserJson {
