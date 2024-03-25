@@ -20,9 +20,17 @@ interface HospitalItem {
 
   export interface BookingItem {
     _id: string,
-    apptDate: string,
+    checkOutDate: string,
+    checkInDate: string,
     user: string,
-    hotel: string,
+    hotel: {
+      _id: string,
+      name: string,
+      address: string,
+      tel: string,
+      file: string,
+      id: string
+    },
     createdAt: string,
     __v: number,
   }
