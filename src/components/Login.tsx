@@ -11,7 +11,7 @@ export default function Login({error}: {error: string|undefined}){
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         await signIn("credentials", {
-            username: username.current,
+            email: username.current,
             password: password.current,
             redirect: true,
             callbackUrl: "http://localhost:3000"
@@ -31,10 +31,11 @@ export default function Login({error}: {error: string|undefined}){
             <button type="submit" className="w-[45%] h-[100%] my-5 mx-[5%] text-xl text-slate-900 font-bold font-sans bg-orange-500 hover:bg-slate-800 hover:text-orange-400 rounded-2xl"
             >Sign In</button>
             <span className="whitespace-pre-line text-lg">Don't have an account?<Link className="font-black" href={"/signup"}> create one</Link></span>
-            {
-                !!error && <p className="text-red-700 text-sm">Authentication failed. Check Username or Password</p> 
-            }
+            
             </div>
+            {
+                !!error && <p className="text-red-700 text-sm mt-5 mx-5">Authentication failed. Check Username or Password</p> 
+            }
         </form>
     )
 }
