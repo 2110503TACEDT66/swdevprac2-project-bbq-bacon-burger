@@ -5,11 +5,29 @@ import { Rating} from "@mui/material";
 import Image from "next/image";
 import getHotel from "@/libs/getHotel";
 import Link from "next/link";
+import getReviewsByHotel from "@/libs/getReviews";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import YourReview from "@/components/YourReview";
 
 export default async function Detailpage( {params} : {params:  {hid:string}}) {
 
+    const session = await getServerSession(authOptions);
+    if (!session) return;
+
     const hotelDetail = await getHotel(params.hid)
-  
+
+    const review = await getReviewsByHotel(hotelDetail.data.id, session?.user.token)
+    let AvgReview = 0;
+    if (review.count) {
+        let sum:number = 0;
+        review.data.forEach((item) => {
+        sum += item.stars
+        })
+        AvgReview = sum/review.count
+    }
+    
+    
 
     return (
         <main className="h-auto w-full">
@@ -21,7 +39,7 @@ export default async function Detailpage( {params} : {params:  {hid:string}}) {
                 <div className="p-10">
                     <h1 className="my-2 font-bold text-3xl font-sans">{hotelDetail.data.name}</h1>
                     <div className="h-[20px] w-[100%] flex items-center flex-wrap ">
-                        <Rating readOnly value={3.4} precision={0.1}></Rating> <span className="text-sm font-light mx-3">reviews by 10 persons</span>
+                        <Rating readOnly value={AvgReview} precision={0.1}></Rating> <span className="text-sm font-light mx-3">reviews by {review.count} persons</span>
                     </div>
                     <p className="m-4 font-medium text-md font-sans">{hotelDetail.data.address}</p>
                     <p className="m-4 font-medium text-md font-sans">Rooms Available: {hotelDetail.data.capacity}</p>
@@ -51,15 +69,16 @@ export default async function Detailpage( {params} : {params:  {hid:string}}) {
 
             <div className="bg-white h-auto pb-5 w-[90%] mt-5 mx-auto border border-solid border-slate-800 rounded-b-2xl">
                 <p className="text-md font-light mx-10 mt-5">Your Review</p> 
-                <div className="mx-auto mt-1 mb-5 h-[auto] p-5 w-[95%] border border-solid border-slate-500 rounded-2xl">
-                    <Rating></Rating>
-                    <button className="float-right w-[100px] h-[40px] text-md text-white font-sans font-semibold bg-orange-500 hover:bg-slate-800 hover:text-orange-500 rounded-md">Post Review</button>
-                    <textarea className="h-[100px] w-full px-5 py-2 mt-2"></textarea>
-                </div>
+                <YourReview/>
                 
                 <p className="text-md font-light mx-10">Other customer reviews</p> 
-                <ReviewBlock user="john" rating={5} comment={"nah I'd win"} createdAt="07-08-2111"/>
-                <ReviewBlock user="roblox" rating={2} comment={"this hotel is good"} createdAt="23-02-1995"/>
+                {
+                    review.data.map( (item) => (
+                        
+                        <ReviewBlock key={item.user.name} user={item.user.name} rating={item.stars} comment={item.description} createdAt={item.createAt.slice(0,10)}/>
+                    ))
+
+                }
                 
             </div>
         </main>
