@@ -28,6 +28,9 @@ export default async function HotelCard({hotelName,imgSrc,hotelAddress,hotelTel}
                 <div className="w-full px-[4%] pt-[2%] text-2xl r-0 b-0">
                     ฿: {randPrice}
                 </div>
+                <div className="w-full px-[4%] pt-[2%] text-2xl r-0 b-0">
+                    {imgSrc}
+                </div>
             </div>
             
         </CardTemplate>
