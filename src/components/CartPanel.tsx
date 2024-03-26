@@ -44,13 +44,12 @@ export default function CartPanel() {
             try {
                 await userCreateBooking(session?.data?.user.token, item.hid, session?.data?.user._id, item.checkInDate, item.checkOutDate, item.picture);
             } catch (error) {
-                
                 alert("You can only book 3 rooms at a time");
                 return; // Exit the function early if the booking creation fails
             }
 
             dispatch(removeFromCart(item._id));
-            await new Promise((resolve) => setTimeout(resolve, 500)); // Wait for 1000 milliseconds before processing the next item
+            // await new Promise((resolve) => setTimeout(resolve, 500)); // Wait for 1000 milliseconds before processing the next item
         }
     };
 
@@ -79,21 +78,54 @@ export default function CartPanel() {
                 <div className="w-[35%]">
 
                     <div className="h-fit text-black ml-[10%] border-solid border-2 border-gray-400 rounded-md bg-white">
-                        <div className="p-3">
-                            <div className="text-xl font-bold text-center mt-3">Your Cart</div>
+                        <div className="p-4 mx-8">
+                            <div className="text-xl font-bold text-center mt-3 mb-5">Your Cart</div>
+                            <table className="border-collapse w-full">
+                                <tbody>
+                                    <tr><td colSpan={2} className="border border-gray-400 px-4 py-2"></td></tr>
+                                    {
+                                        cartItems.map((item) => {
+                                            return (
 
-                            {
-                                cartItems.map((item) => {
-                                    return (
-                                        <div>
-                                            <h3 className="text-lg">{item.name}: ฿ {item.price}.-</h3>
-                                        </div>
-                                    )
-                                })
-                            }
-                            <h3 className="mt-3">Price: ฿ {totalPrice}.-</h3>
-                            <h3 className="mt-2">Service Fee: ฿ {(totalPrice * 0.3).toFixed(2)}.-</h3>
-                            <h3 className="mt-2">Total Price: ฿ {(totalPrice * 1.3).toFixed(2)}.-</h3>
+                                                <tr>
+                                                    <td className="border border-gray-400 px-4 py-2">
+                                                        <h3 className="text-md">{item.name}</h3>
+                                                    </td>
+                                                    <td className="border border-gray-400 px-4 py-2 text-right">
+                                                        ฿ {item.price}.-
+                                                    </td>
+                                                </tr>
+
+                                            )
+                                        })
+                                    }
+                                    <tr><td colSpan={2} className="border border-gray-400 px-4 py-2"></td></tr>
+                                    <tr>
+                                        <td className="border border-gray-400 px-4 py-2">
+                                            <h3 className="text-sm">Price: </h3>
+                                        </td>
+                                        <td className="border border-gray-400 px-4 py-2 text-right">
+                                            <h3 className="text-sm">฿ {totalPrice}.-</h3>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td className="border border-gray-400 px-4 py-2">
+                                            <h3 className="text-sm">Service Fee: </h3>
+                                        </td>
+                                        <td className="border border-gray-400 px-4 py-2 text-right">
+                                            <h3 className="text-sm">฿ {(totalPrice * 0.3).toFixed(2)}.-</h3>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td className="border border-gray-400 px-4 py-2">
+                                            <h3 className="text-md font-bold">Total Price: </h3>
+                                        </td>
+                                        <td className="border border-gray-400 px-4 py-2 text-right">
+                                            <h3 className="text-sm">฿ {(totalPrice * 1.3).toFixed(2)}.-</h3>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                             <div className="text-lg mt-4 font-bold">
                                 Choose Your Payment Method
                                 <div className="flex flex-row item-center">

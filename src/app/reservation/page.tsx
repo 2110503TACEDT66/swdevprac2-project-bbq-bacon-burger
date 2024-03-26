@@ -53,11 +53,11 @@ export default function reservation() {
                     <p className="text-gray-600">It's Happening...</p>
                 </div>
                 <div className="flex justify-between items-center mb-8">
-                    <div>
+                    <div className="m-1">
                         <h2 className="text-lg font-semibold text-gray-800">Check In</h2>
                         <DateBooker onDateChange={(value:Dayjs)=>{setCheckInDate(value)}}/>
                     </div>
-                    <div>
+                    <div className="m-1">
                         <h2 className="text-lg font-semibold text-gray-800">Check Out</h2>
                         <DateBooker onDateChange={(value:Dayjs)=>{setCheckOutDate(value)}}/>
                     </div>
