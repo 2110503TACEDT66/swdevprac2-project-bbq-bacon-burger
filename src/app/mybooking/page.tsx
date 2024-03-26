@@ -65,17 +65,16 @@ export default function mybooking() {
             </div>
 
             <div className="flex flex-row pl-20 pr-20 pt-10 h-auto bg-paper justify-center items-center">
-                <div className="w-[80%] h-full">
+                <div className="w-[80%] h-auto">
                     {bookings?.count > 0 ? (
                         bookings?.data.map((booking: BookingItem) => (
-                            <div className="flex flex-row border-solid border-2 border-gray-400 rounded-md mb-3 bg-white">
-
+                            <div className="flex flex-row border-solid border-2 border-gray-400 rounded-md mb-3 bg-white ">
                                 <Image
                                     src={`/img/${booking.hotel.file}`}
                                     alt={booking.hotel.name}
                                     width={200}
                                     height={200}
-                                    className="rounded-sm w-[20%]"
+                                    className="rounded-sm w-[20%] h-[80%]"
                                 />
                                 <div className="ml-2 text-black">
                                     <h1 className="text-2xl font-bold">{booking.hotel.name}</h1>
