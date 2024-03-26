@@ -1,5 +1,5 @@
 export default async function getHotel(id: string) {
-    const response = await fetch(`https://presentation-day-1-bbq-bacon-burger.vercel.app/api/v1/hotels/${id}`)
+    const response = await fetch(`${process.env.BACKEND_URL}/api/v1/hotels/${id}`)
     if (!response.ok) {
         throw new Error("Failed to fetch Hotel")
     }

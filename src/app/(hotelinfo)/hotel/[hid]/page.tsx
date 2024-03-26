@@ -95,7 +95,7 @@ export default async function Detailpage({ params }: { params: { hid: string } }
                 {
                     review.data.map((item: any) => (
 
-                        <ReviewBlock key={item.user.name} user={item.user.name} rating={item.stars} comment={item.description} createdAt={item.createAt.slice(0, 10)} />
+                        <ReviewBlock key={item.user?.name} user={item.user?.name} rating={item.stars} comment={item.description} createdAt={item.createAt.slice(0, 10)} />
                     ))
 
                 }

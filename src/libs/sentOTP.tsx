@@ -1,5 +1,5 @@
 export default async function sentOTP(userEmail: string) {
-    const response = await fetch("https://presentation-day-1-bbq-bacon-burger.vercel.app/api/v1/otp/sent-otp", {
+    const response = await fetch(`${process.env.BACKEND_URL}/api/v1/otp/sent-otp`, {
         method: "POST",
         mode:"cors",
         headers: {

@@ -1,5 +1,5 @@
 export default async function getReviewsByHotel(hotel:string) {
-    const response = await fetch(`https://presentation-day-1-bbq-bacon-burger.vercel.app/api/v1/hotels/${hotel}/reviews`, {
+    const response = await fetch(`${process.env.BACKEND_URL}/api/v1/hotels/${hotel}/reviews`, {
         method: "GET",
         mode: "cors",
 
