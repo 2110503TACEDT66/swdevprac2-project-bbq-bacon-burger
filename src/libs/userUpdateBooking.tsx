@@ -1,5 +1,5 @@
 export default async function userUpdateBooking(token: string, bid: string, checkInDate: string, checkOutDate: string){
-    const response = await fetch(`http://localhost:5000/api/v1/bookings/${bid}`, {
+    const response = await fetch(`https://presentation-day-1-bbq-bacon-burger.vercel.app/api/v1/bookings/${bid}`, {
         method: "PUT",
         mode: "cors",
         headers: {
