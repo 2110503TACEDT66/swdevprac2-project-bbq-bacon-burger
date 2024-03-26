@@ -6,7 +6,7 @@ import userUpdateBooking from '@/libs/userUpdateBooking';
 import { useSession } from 'next-auth/react';
 
 const EditBooking = ({ booking, onCancel, onSave }: { booking: BookingItem, onCancel: () => void, onSave: ()=> void }) => {
-    const session = useSession();
+    const {data:session} = useSession();
 
     const [checkInDate, setCheckInDate] = useState<Dayjs>(booking.checkInDate ? dayjs(booking.checkInDate) : dayjs());
     const [checkOutDate, setCheckOutDate] = useState<Dayjs>(booking.checkOutDate ? dayjs(booking.checkOutDate) : dayjs());
@@ -15,8 +15,10 @@ const EditBooking = ({ booking, onCancel, onSave }: { booking: BookingItem, onCa
 
     useEffect(() => {
         const fetchUpdateBookings = async () => {
+            
             try {
-                const result = await userUpdateBooking(session.data?.user.token, booking._id, checkInDate.format('YYYY-MM-DD'), checkOutDate.format('YYYY-MM-DD'));
+                if(!session) return;
+                const result = await userUpdateBooking(session?.user.token, booking._id, checkInDate.format('YYYY-MM-DD'), checkOutDate.format('YYYY-MM-DD'));
                 setUpdateBooking(result);
             } catch (error) {
                 console.error(error);
@@ -30,9 +32,9 @@ const EditBooking = ({ booking, onCancel, onSave }: { booking: BookingItem, onCa
     return (
         <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 z-50">
             <div className="modal-content bg-white p-6 rounded-lg shadow-lg">
-                <h2 className="text-2xl font-bold mb-4">Edit {booking.hotel.name}</h2>
-                <h2 className="text-sm font-semibold text-gray-800 mb-2">User: {booking.user}</h2>
-                <h2 className="text-sm font-semibold text-gray-800 mb-2">Booking: {booking._id}</h2>
+                <h2 className="text-2xl font-bold mb-4">Edit: {booking.hotel.name}</h2>
+                <h2 className="text-md font-semibold text-gray-800 mb-2">Current Booking: {booking.checkInDate} to {booking.checkOutDate}</h2>
+                <h2 className="text-sm text-gray-800 mb-2">User: {booking.user}</h2>
                 <div className="grid grid-cols-2 gap-4">
                     <div>
                         <h2 className="text-lg font-semibold text-gray-800 mb-2">Check In</h2>

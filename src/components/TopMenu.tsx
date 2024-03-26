@@ -11,7 +11,7 @@ import { useSession } from 'next-auth/react'
 
 export default function TopMenu() {
 
-        const [userData, setUserData] = useState(null);
+        const [userData, setUserData] = useState<any>(null);
         const {data:session} = useSession();
     
         useEffect(() => {

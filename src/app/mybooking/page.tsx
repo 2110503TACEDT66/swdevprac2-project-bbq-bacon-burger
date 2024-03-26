@@ -11,7 +11,7 @@ import dayjs, { Dayjs } from "dayjs";
 import EditBooking from "@/components/EditBooking";
 
 export default function mybooking() {
-    const session = useSession();
+    const {data:session} = useSession();
     // console.log(session);
     if (!session) {
         return (
@@ -24,7 +24,7 @@ export default function mybooking() {
         );
     }
 
-    const [bookings, setBookings] = useState();
+    const [bookings, setBookings] = useState<any>();
     const [deleteBooking, setDeleteBooking] = useState<string | null>(null);
     const [showEditForm, setShowEditForm] = useState(false);
     const [editingBooking, setEditingBooking] = useState<BookingItem | null>(null);
@@ -32,7 +32,7 @@ export default function mybooking() {
     useEffect(() => {
         const fetchBookings = async () => {
             try {
-                const result = await getBookings(session.data.user.token);
+                const result = await getBookings(session.user.token);
                 setBookings(result);
 
             } catch (error) {
@@ -45,7 +45,8 @@ export default function mybooking() {
     useEffect(() => {
         const fetchDeleteBooking = async () => {
             try {
-                const result = await userDeleteBooking(session.data.user.token, deleteBooking);
+                if(deleteBooking === null) return;
+                const result = await userDeleteBooking(session.user.token, deleteBooking);
                 setDeleteBooking(result);
             } catch (error) {
                 console.error(error);
