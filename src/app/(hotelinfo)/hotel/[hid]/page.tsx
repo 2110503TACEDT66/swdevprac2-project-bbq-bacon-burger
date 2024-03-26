@@ -82,7 +82,7 @@ export default async function Detailpage({ params }: { params: { hid: string } }
 
 
                 {
-                    session && !review.data.some((e: any) => e.user.email == userInfo?.data?.email) ?
+                    session && !review.data.some((e: any) => e.user?.email == userInfo?.data.email) ?
                         <>
                             <p className="text-md font-light mx-10 mt-5">Your Review</p>
                             <YourReview hotel={params.hid} />
