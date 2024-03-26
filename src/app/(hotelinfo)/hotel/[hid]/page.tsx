@@ -13,13 +13,12 @@ import getUserProfile from "@/libs/getUserProfile";
 
 export default async function Detailpage( {params} : {params:  {hid:string}}) {
 
-    const session = await getServerSession(authOptions);
-    if (!session) return;
+    
     
 
     const hotelDetail = await getHotel(params.hid)
 
-    const review = await getReviewsByHotel(hotelDetail.data.id, session?.user.token)
+    const review = await getReviewsByHotel(hotelDetail.data.id)
     let AvgReview = 0;
     if (review.count) {
         let sum:number = 0;
@@ -29,7 +28,13 @@ export default async function Detailpage( {params} : {params:  {hid:string}}) {
         AvgReview = sum/review.count
     }
 
-    const userInfo = await getUserProfile(session.user.token)
+    const session = await getServerSession(authOptions);
+    var userInfo:any = null;
+    if (session) {
+        userInfo = await getUserProfile(session.user.token)
+    }
+    
+
 
     return (
         <main className="h-auto w-full">
@@ -71,8 +76,9 @@ export default async function Detailpage( {params} : {params:  {hid:string}}) {
 
             <div className="bg-white h-auto pb-5 w-[90%] mt-5 mx-auto border border-solid border-slate-800 rounded-b-2xl p-2">
 
+
                 {
-                    !review.data.some((e:any) => e.user.email == userInfo.data.email) ?
+                    session && !review.data.some((e:any) => e.user.email == userInfo.data.email) ?
                     <>
                     <p className="text-md font-light mx-10 mt-5">Your Review</p> 
                     <YourReview hotel={params.hid}/>
