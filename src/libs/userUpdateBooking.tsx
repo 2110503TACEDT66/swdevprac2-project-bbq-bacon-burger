@@ -1,5 +1,5 @@
-export default async function userCreateBooking(token: string, hid: string, uid: string, checkInDate: string, checkOutDate: string, file: string){
-    const response = await fetch(`https://presentation-day-1-bbq-bacon-burger.vercel.app/api/v1/hotels/${hid}/bookings`, {
+export default async function userUpdateBooking(token: string, bid: string, checkInDate: string, checkOutDate: string){
+    const response = await fetch(`https://presentation-day-1-bbq-bacon-burger.vercel.app/api/v1/bookings/${bid}`, {
         method: "PUT",
         mode: "cors",
         headers: {
@@ -9,13 +9,11 @@ export default async function userCreateBooking(token: string, hid: string, uid:
         body: JSON.stringify({
             checkInDate: checkInDate,
             checkOutDate: checkOutDate,
-            user: uid,
-            file: file
         })
     })
 
     if (!response.ok) {
-        throw new Error("POST Failed");
+        throw new Error("PUT Failed");
     }
     return await response.json();
 }

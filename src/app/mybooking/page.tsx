@@ -6,6 +6,9 @@ import { BookingItem } from "../../../interface";
 import userDeleteBooking from "@/libs/userDeleteBooking";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
+import DateBooker from "@/components/DateBooker";
+import dayjs, { Dayjs } from "dayjs";
+import EditBooking from "@/components/EditBooking";
 
 export default function mybooking() {
     const session = useSession();
@@ -23,19 +26,21 @@ export default function mybooking() {
 
     const [bookings, setBookings] = useState();
     const [deleteBooking, setDeleteBooking] = useState<string | null>(null);
+    const [showEditForm, setShowEditForm] = useState(false);
+    const [editingBooking, setEditingBooking] = useState<BookingItem | null>(null);
 
     useEffect(() => {
         const fetchBookings = async () => {
             try {
                 const result = await getBookings(session.data.user.token);
                 setBookings(result);
-                
+
             } catch (error) {
                 console.error(error);
             }
         }
         fetchBookings();
-    }, [deleteBooking])
+    }, [deleteBooking, showEditForm])
 
     useEffect(() => {
         const fetchDeleteBooking = async () => {
@@ -50,6 +55,22 @@ export default function mybooking() {
             fetchDeleteBooking();
         }
     }, [deleteBooking])
+
+    const handleEditClick = (booking: BookingItem) => {
+        setEditingBooking(booking);
+        setShowEditForm(true);
+    };
+
+    const handleCancelEdit = () => {
+        setShowEditForm(false);
+        setEditingBooking(null);
+    };
+
+    const handleSaveEdit = () => {
+        // Logic to save the edited booking
+        setShowEditForm(false);
+        setEditingBooking(null);
+    };
 
     return (
         <div>
@@ -68,7 +89,7 @@ export default function mybooking() {
                 <div className="w-[80%] h-auto">
                     {bookings?.count > 0 ? (
                         bookings?.data.map((booking: BookingItem) => (
-                            <div className="flex flex-row border-solid border-2 border-gray-400 rounded-md mb-3 bg-white ">
+                            <div key={booking._id} className="flex flex-row border-solid border-2 border-gray-400 rounded-md mb-3 bg-white ">
                                 <Image
                                     src={`/img/${booking.hotel.file}`}
                                     alt={booking.hotel.name}
@@ -84,10 +105,11 @@ export default function mybooking() {
                                     <h4 className="text-md text-gray-600">User ID: {booking.user}</h4>
                                 </div>
                                 <div className="ml-auto flex flex-row h-[80%]">
-                                    <button className="bg-blue-500 w-[50%] text-white rounded-lg p-1 m-1 hover:bg-blue-700 text-white rounded-lg transition duration-300 transform hover:scale-105">
+                                    <button className="bg-blue-500 w-[50%] text-white rounded-lg p-1 m-1 hover:bg-blue-700 text-white rounded-lg transition duration-300 transform hover:scale-105" onClick={() => handleEditClick(booking)}>
                                         Edit
                                     </button>
-                                    <button className="bg-red-500 w-[50%] text-white rounded-lg p-1 m-1 hover:bg-red-700 text-white rounded-lg transition duration-300 transform hover:scale-105" onClick={() => {setDeleteBooking(booking._id); }}>
+
+                                    <button className="bg-red-500 w-[50%] text-white rounded-lg p-1 m-1 hover:bg-red-700 text-white rounded-lg transition duration-300 transform hover:scale-105" onClick={() => { setDeleteBooking(booking._id); }}>
                                         Cancel Booking
                                     </button>
                                 </div>
@@ -100,6 +122,10 @@ export default function mybooking() {
                     )}
                 </div>
             </div>
+
+            {showEditForm && editingBooking && (
+                <EditBooking booking={editingBooking} onCancel={handleCancelEdit} onSave={handleSaveEdit} />
+            )}
         </div>
     );
 }

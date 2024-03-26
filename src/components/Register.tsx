@@ -2,6 +2,8 @@
 import { useRef, useState, useEffect} from "react"
 import OTPTextfield from "./OTPTextfield";
 import sentOTP from "@/libs/sentOTP";
+import { useSession } from "next-auth/react";
+import getUserProfile from "@/libs/getUserProfile";
 export default function Register() {
     const firstname = useRef("");
     const lastname = useRef("");
@@ -26,6 +28,9 @@ export default function Register() {
         setShowOTP(true);
 
     }
+
+    
+   
 
    
 
