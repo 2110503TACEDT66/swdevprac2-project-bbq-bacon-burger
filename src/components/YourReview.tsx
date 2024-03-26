@@ -3,6 +3,7 @@ import PostReview from "@/libs/postReview";
 import { Rating } from "@mui/material"
 import { useSession } from "next-auth/react";
 import { FormEvent, useRef, useState } from "react"
+import { useRouter } from "next/router";
 
 export default function YourReview({hotel}:{hotel:string}) {
     const text = useRef("");
@@ -10,10 +11,12 @@ export default function YourReview({hotel}:{hotel:string}) {
 
     const {data:session} = useSession();
 
-
+    const router = useRouter()
     const handleSumbit = async (e:FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
         if (!session || !rating || !text) return;
         await PostReview(hotel,session.user.token,rating,text.current)
+        router.reload();
         
     }
     
