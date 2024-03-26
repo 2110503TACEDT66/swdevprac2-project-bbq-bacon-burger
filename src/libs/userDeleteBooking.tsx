@@ -1,5 +1,5 @@
 export default async function userDeleteBooking(token: string, bid: string) {
-    const response = await fetch(`http://localhost:5000/api/v1/bookings/${bid}`, {
+    const response = await fetch(`https://presentation-day-1-bbq-bacon-burger.vercel.app/api/v1/bookings/${bid}`, {
         method: "DELETE",
         mode: "cors",
         headers: {

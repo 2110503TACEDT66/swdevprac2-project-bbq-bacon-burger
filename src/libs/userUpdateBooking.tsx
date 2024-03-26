@@ -1,5 +1,5 @@
 export default async function userCreateBooking(token: string, hid: string, uid: string, checkInDate: string, checkOutDate: string, file: string){
-    const response = await fetch(`http://localhost:5000/api/v1/hotels/${hid}/bookings`, {
+    const response = await fetch(`https://presentation-day-1-bbq-bacon-burger.vercel.app/api/v1/hotels/${hid}/bookings`, {
         method: "PUT",
         mode: "cors",
         headers: {
