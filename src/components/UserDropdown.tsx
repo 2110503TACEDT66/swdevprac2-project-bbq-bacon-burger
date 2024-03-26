@@ -5,6 +5,7 @@ import Image from "next/image"
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react"
 import { UserJson } from "../../interface";
+import Link from "next/link";
 
 export default function UserDropDown() {
     const [display, setDisplay] = useState("invisible");

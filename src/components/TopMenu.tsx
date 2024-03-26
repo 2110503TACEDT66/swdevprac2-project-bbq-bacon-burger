@@ -1,15 +1,32 @@
-
+'use client'
 import Image from 'next/image'
 import TopMenuItem from './MenuItem'
 import Link from 'next/link'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/app/api/auth/[...nextauth]/route'
 import UserDropDown from './UserDropdown'
+import getUserProfile from '@/libs/getUserProfile'
+import { useEffect,useState } from 'react'
+import { useSession } from 'next-auth/react'
 
-export default async function TopMenu() {
+export default function TopMenu() {
+
+        const [userData, setUserData] = useState(null);
+        const {data:session} = useSession();
     
-    const session = await getServerSession(authOptions)
-
+        useEffect(() => {
+            const fetchData = async () => {
+                
+                // console.log(session)
+                if (session) {
+                    const userData = await getUserProfile(session?.user.token);
+                    setUserData(userData);
+                }
+            };
+    
+            fetchData();
+        }, []);
+    
     return (
         <div className="h-[70px] bg-paper fixed top-0 left-0 right-0 z-30 border-b border-t border-solid border-gray-400 flex flex-row">
             <Link href={'/'}> 
@@ -18,11 +35,14 @@ export default async function TopMenu() {
             <div className='flex flex-row absolute right-0 h-full mr-3 items-center'>
                 <TopMenuItem title='Browse Hotel' pageRef='/hotel'/>
 
+
                 {
-                    session?
+                    userData?
                     <>
-                    
-                    <TopMenuItem title='My Booking' pageRef='/mybooking' />
+                    {   
+                        userData?.data.role === 'admin'? <TopMenuItem title='All Booking' pageRef='/mybooking' />
+                        :<TopMenuItem title='My Booking' pageRef='/mybooking' />
+                    }
                     <UserDropDown/>
                     </> :
                     <TopMenuItem title='Sign-In' pageRef='/signin' />
