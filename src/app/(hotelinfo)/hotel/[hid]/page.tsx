@@ -9,11 +9,13 @@ import getReviewsByHotel from "@/libs/getReviews";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import YourReview from "@/components/YourReview";
+import getUserProfile from "@/libs/getUserProfile";
 
 export default async function Detailpage( {params} : {params:  {hid:string}}) {
 
     const session = await getServerSession(authOptions);
     if (!session) return;
+    
 
     const hotelDetail = await getHotel(params.hid)
 
@@ -21,13 +23,13 @@ export default async function Detailpage( {params} : {params:  {hid:string}}) {
     let AvgReview = 0;
     if (review.count) {
         let sum:number = 0;
-        review.data.forEach((item) => {
+        review.data.forEach((item:any) => {
         sum += item.stars
         })
         AvgReview = sum/review.count
     }
-    
-    
+
+    const userInfo = await getUserProfile(session.user.token)
 
     return (
         <main className="h-auto w-full">
@@ -67,13 +69,21 @@ export default async function Detailpage( {params} : {params:  {hid:string}}) {
         
             </div>
 
-            <div className="bg-white h-auto pb-5 w-[90%] mt-5 mx-auto border border-solid border-slate-800 rounded-b-2xl">
-                <p className="text-md font-light mx-10 mt-5">Your Review</p> 
-                <YourReview/>
-                
-                <p className="text-md font-light mx-10">Other customer reviews</p> 
+            <div className="bg-white h-auto pb-5 w-[90%] mt-5 mx-auto border border-solid border-slate-800 rounded-b-2xl p-2">
+
                 {
-                    review.data.map( (item) => (
+                    !review.data.some((e:any) => e.user.email == userInfo.data.email) ?
+                    <>
+                    <p className="text-md font-light mx-10 mt-5">Your Review</p> 
+                    <YourReview hotel={params.hid}/>
+                    </> : ""
+                }
+
+                
+                
+                <p className="text-md font-light mx-10">All reviews</p> 
+                {
+                    review.data.map( (item:any) => (
                         
                         <ReviewBlock key={item.user.name} user={item.user.name} rating={item.stars} comment={item.description} createdAt={item.createAt.slice(0,10)}/>
                     ))

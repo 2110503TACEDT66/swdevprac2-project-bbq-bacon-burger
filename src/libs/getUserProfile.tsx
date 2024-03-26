@@ -3,6 +3,7 @@ export default async function getUserProfile(token: string) {
         method: "GET",
         headers: {
             authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
         },
     })
     if (!response.ok) {

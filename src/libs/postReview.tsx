@@ -1,10 +1,15 @@
-export default async function PostReview(hotel:string, token:string) {
+export default async function PostReview(hotel:string, token:string, stars:number, description:string) {
     const response = await fetch(`http://localhost:5000/api/v1/hotels/${hotel}/reviews`, {
         method: "POST",
         mode: "cors",
         headers: {
             authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
         },
+        body: JSON.stringify({
+            stars: stars,
+            description: description
+        })
     })
     if (!response.ok) {
         throw new Error("Failed to post reviews")
