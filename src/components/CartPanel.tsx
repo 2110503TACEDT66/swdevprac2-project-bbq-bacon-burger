@@ -2,9 +2,11 @@
 
 import { removeFromCart } from "@/app/redux/features/cartSlice";
 import { AppDispatch, useAppSelector } from "@/app/redux/store"
+import getBookings from "@/libs/getBookings";
 import userCreateBooking from "@/libs/userCreateBooking";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
+import { use, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
 export default function CartPanel() {
@@ -17,12 +19,40 @@ export default function CartPanel() {
         totalPrice += item.price
     })
 
-    const createBooking = () => {
-        cartItems.map(async (item) => { 
-            await userCreateBooking(session.data.user.token, item.hid, session.data.user._id, item.checkInDate, item.checkOutDate, item.picture) 
-            dispatch(removeFromCart(item._id))
-        })
-    }
+    const [bookings, setBookings] = useState();
+    useEffect(() => {
+        const fetchBookings = async () => {
+            try {
+                const result = await getBookings(session.data.user.token);
+                setBookings(result);
+
+            } catch (error) {
+                console.error(error);
+            }
+        }
+        fetchBookings();
+
+    }, [cartItems])
+
+    const createBooking = async () => {
+        for (const item of cartItems) {
+            // if (cartItems.length > 3) {
+
+            //     alert("You can only book 3 rooms at a time");
+            //     return; // Exit the function early if the booking limit is exceeded
+            // }
+            try {
+                await userCreateBooking(session?.data?.user.token, item.hid, session?.data?.user._id, item.checkInDate, item.checkOutDate, item.picture);
+            } catch (error) {
+                
+                alert("You can only book 3 rooms at a time");
+                return; // Exit the function early if the booking creation fails
+            }
+
+            dispatch(removeFromCart(item._id));
+            await new Promise((resolve) => setTimeout(resolve, 500)); // Wait for 1000 milliseconds before processing the next item
+        }
+    };
 
     return (
         cartItems.length > 0 ?
@@ -50,19 +80,20 @@ export default function CartPanel() {
 
                     <div className="h-fit text-black ml-[10%] border-solid border-2 border-gray-400 rounded-md bg-white">
                         <div className="p-3">
-                            <div className="text-lg font-bold text-center">Your Cart</div>
+                            <div className="text-xl font-bold text-center mt-3">Your Cart</div>
 
                             {
                                 cartItems.map((item) => {
                                     return (
                                         <div>
-                                            <h3>{item.name} {item.price}</h3>
+                                            <h3 className="text-lg">{item.name}: ฿ {item.price}.-</h3>
                                         </div>
                                     )
                                 })
                             }
-                            <h3>Service Fee: {(totalPrice * 0.3).toFixed(2)}</h3>
-                            <h3>Total: {(totalPrice * 1.3).toFixed(2)}</h3>
+                            <h3 className="mt-3">Price: ฿ {totalPrice}.-</h3>
+                            <h3 className="mt-2">Service Fee: ฿ {(totalPrice * 0.3).toFixed(2)}.-</h3>
+                            <h3 className="mt-2">Total Price: ฿ {(totalPrice * 1.3).toFixed(2)}.-</h3>
                             <div className="text-lg mt-4 font-bold">
                                 Choose Your Payment Method
                                 <div className="flex flex-row item-center">
